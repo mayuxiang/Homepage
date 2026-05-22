@@ -14,9 +14,11 @@ Outside academia, I enjoy traveling, running, swimming, photography, reading, st
 
 ## Research Interests
 
-* Network Security and Privacy
-* Trustworthy Machine Learning
+* Cybersecurity
+* Trustworthy AI
+* Embodied AI
 * Mobile Computing
+* Intelligent Networked Systems
 
 ## Contact
 

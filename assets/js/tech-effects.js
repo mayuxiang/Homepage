@@ -143,10 +143,11 @@
     // Typing Effect — Sidebar (all pages)
     // ============================================
     const myPhrases = [
-        'Network Security & Privacy',
-        'Trustworthy Machine Learning',
+        'Cybersecurity',
+        'Trustworthy AI',
+        'Embodied AI',
         'Mobile Computing',
-        'Embodied Artificial Intelligence'
+        'Intelligent Networked Systems'
     ];
 
     const henuPhrases = [
