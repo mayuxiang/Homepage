@@ -1,27 +1,139 @@
 /* === Tech Effects for Yuxiang MA's Homepage === */
-/* Subtle, professional, but tech-savvy */
 
-/* Import modern monospace font for accents */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/* CSS Variables */
 :root {
     --accent-cyan: #00b4d8;
     --accent-green: #2ecc71;
-    --accent-blue: #3498db;
-    --accent-purple: #9b59b6;
-    --text-muted: #6c757d;
     --glow-cyan: rgba(0, 180, 216, 0.3);
-    --glow-green: rgba(46, 204, 113, 0.3);
+    --text-muted: #6c757d;
 }
 
-/* === Subtle Grid Background === */
-body {
-    position: relative;
-    overflow-x: hidden;
+/* ==========================================
+   Dark Mode
+   ========================================== */
+body.dark-mode {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-card: #1c2128;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --border-color: rgba(0, 180, 216, 0.12);
+    --link-color: #58a6ff;
 }
 
-body::before {
+/* Apply dark mode to all pages */
+body.dark-mode,
+body.dark-mode .page,
+body.dark-mode .page__inner,
+body.dark-mode .masthead,
+body.dark-mode .sidebar,
+body.dark-mode .author__content,
+body.dark-mode .author__urls-wrapper,
+body.dark-mode .page__hero,
+body.dark-mode .page__content,
+body.dark-mode .archive,
+body.dark-mode .grid__wrapper,
+body.dark-mode .grid__item {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .masthead {
+    background-color: var(--bg-secondary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+body.dark-mode .sidebar {
+    background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .author__name {
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode .author__bio,
+body.dark-mode .author__location {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4 {
+    color: #e6edf3 !important;
+}
+
+body.dark-mode a {
+    color: var(--link-color) !important;
+}
+
+body.dark-mode a:hover {
+    color: #79c0ff !important;
+}
+
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode td,
+body.dark-mode th {
+    color: var(--text-primary) !important;
+}
+
+body.dark-mode code,
+body.dark-mode pre {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+body.dark-mode blockquote {
+    border-left-color: var(--accent-cyan) !important;
+    background-color: rgba(0, 180, 216, 0.05) !important;
+}
+
+body.dark-mode .page__footer {
+    background-color: var(--bg-secondary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+body.dark-mode .page__footer-copyright {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode .grid__item:hover,
+body.dark-mode article:hover {
+    border-color: var(--accent-cyan) !important;
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.1) !important;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color, rgba(0,180,216,0.3));
+    background: var(--bg-secondary, #161b22);
+    color: var(--accent-cyan);
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.dark-mode-toggle:hover {
+    box-shadow: 0 0 15px var(--glow-cyan);
+    transform: scale(1.1);
+}
+
+/* Grid background for dark mode */
+body.dark-mode::before {
     content: '';
     position: fixed;
     top: 0;
@@ -29,14 +141,51 @@ body::before {
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(rgba(0, 180, 216, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 180, 216, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(0, 180, 216, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 216, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     z-index: -1;
     pointer-events: none;
 }
 
-/* === Particle Canvas === */
+/* ==========================================
+   Scanline Effect (very subtle)
+   ========================================== */
+body.dark-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.02) 0px,
+        rgba(0, 0, 0, 0.02) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* ==========================================
+   Matrix Canvas
+   ========================================== */
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    pointer-events: none;
+    opacity: 0.05;
+}
+
+/* ==========================================
+   Particle Canvas
+   ========================================== */
 #particle-canvas {
     position: fixed;
     top: 0;
@@ -45,21 +194,53 @@ body::before {
     height: 100%;
     z-index: -2;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.35;
 }
 
-/* === Enhanced Links === */
-.page__content a,
-.author-profile a,
-.sidebar a {
-    color: var(--accent-cyan) !important;
-    text-decoration: none !important;
+/* ==========================================
+   Sidebar Typing Effect
+   ========================================== */
+.sidebar-typing {
+    margin-top: 8px;
+    font-size: 0.82em;
+    min-height: 1.4em;
+}
+
+#sidebar-typing-text {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-cyan);
+}
+
+body.dark-mode #sidebar-typing-text {
+    color: var(--accent-cyan);
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 0.9em;
+    background: var(--accent-cyan);
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    box-shadow: 0 0 4px var(--glow-cyan);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ==========================================
+   Enhanced Links (dark mode)
+   ========================================== */
+body.dark-mode .page__content a,
+body.dark-mode .author__urls a {
     position: relative;
     transition: all 0.3s ease;
 }
 
-.page__content a::after,
-.author-profile a::after {
+body.dark-mode .page__content a::after {
     content: '';
     position: absolute;
     bottom: -1px;
@@ -71,260 +252,91 @@ body::before {
     transition: width 0.3s ease;
 }
 
-.page__content a:hover::after,
-.author-profile a:hover::after {
+body.dark-mode .page__content a:hover::after {
     width: 100%;
 }
 
-.page__content a:hover,
-.author-profile a:hover {
-    color: var(--accent-cyan) !important;
+body.dark-mode .page__content a:hover {
     text-shadow: 0 0 8px var(--glow-cyan);
 }
 
-/* === Heading Enhancements === */
-.page__content h1,
-.page__content h2,
-.page__content h3 {
-    position: relative;
-    padding-left: 0;
-}
-
-/* === Card-like hover effect for list items === */
-.page__content li {
+/* ==========================================
+   List hover effect (dark mode)
+   ========================================== */
+body.dark-mode .page__content li {
     transition: all 0.3s ease;
     padding: 2px 0;
 }
 
-.page__content li:hover {
+body.dark-mode .page__content li:hover {
     transform: translateX(5px);
-    color: var(--accent-cyan);
+    color: var(--accent-cyan) !important;
 }
 
-/* === Author Profile Enhancements === */
-.author-profile {
-    position: relative;
-}
-
-.author-profile .author__avatar img {
+/* ==========================================
+   Author avatar glow (dark mode)
+   ========================================== */
+body.dark-mode .author__avatar img {
     border: 2px solid transparent;
     transition: all 0.3s ease;
-    box-shadow: 0 0 0 0 transparent;
 }
 
-.author-profile .author__avatar:hover img {
+body.dark-mode .author__avatar:hover img {
     border-color: var(--accent-cyan);
     box-shadow: 0 0 20px var(--glow-cyan);
 }
 
-/* === Masthead Enhancement === */
-.masthead {
-    border-bottom: 1px solid rgba(0, 180, 216, 0.1);
+/* ==========================================
+   Footer - smaller text
+   ========================================== */
+.page__footer-copyright {
+    font-size: 0.78em !important;
+    opacity: 0.7;
 }
 
-/* === Publication List Styling === */
-.page__content ol,
-.page__content ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.page__content ol li,
-.page__content ul li {
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-left: 3px solid transparent;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.page__content ol li::before,
-.page__content ul li::before {
-    content: '▸';
-    color: var(--accent-cyan);
-    font-family: 'JetBrains Mono', monospace;
-    margin-right: 10px;
+body.dark-mode .page__footer-copyright {
+    font-size: 0.78em !important;
     opacity: 0.5;
 }
 
-.page__content ol li:hover,
-.page__content ul li:hover {
-    border-left-color: var(--accent-cyan);
-    background: rgba(0, 180, 216, 0.03);
-    padding-left: 20px;
-}
-
-/* === Strong/Bold Text === */
-.page__content strong {
-    color: #2c3e50;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-/* === Code-like accents === */
-.page__content code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9em;
-    background: rgba(0, 180, 216, 0.05);
-    border: 1px solid rgba(0, 180, 216, 0.1);
-    padding: 1px 5px;
-    border-radius: 3px;
-}
-
-/* === Scrollbar === */
-::-webkit-scrollbar {
+/* ==========================================
+   Scrollbar (dark mode)
+   ========================================== */
+body.dark-mode ::-webkit-scrollbar {
     width: 6px;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+body.dark-mode ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--accent-cyan);
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: rgba(0, 180, 216, 0.3);
     border-radius: 3px;
-    opacity: 0.5;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #0096c7;
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 180, 216, 0.5);
 }
 
-/* === Selection === */
-::selection {
-    background: rgba(0, 180, 216, 0.2);
-    color: #2c3e50;
+/* Selection */
+body.dark-mode ::selection {
+    background: rgba(0, 180, 216, 0.25);
+    color: #e6edf3;
 }
 
-/* === Footer Enhancement === */
-.page__footer {
-    border-top: 1px solid rgba(0, 180, 216, 0.1);
-}
-
-.page__footer-copyright {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85em;
-    color: var(--text-muted);
-}
-
-/* === Subtle glow for research interests === */
-.research-interest {
-    display: inline-block;
-    padding: 3px 12px;
-    margin: 3px;
-    border: 1px solid rgba(0, 180, 216, 0.2);
-    border-radius: 20px;
-    font-size: 0.9em;
-    transition: all 0.3s ease;
-    background: rgba(0, 180, 216, 0.03);
-}
-
-.research-interest:hover {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 10px var(--glow-cyan);
-    background: rgba(0, 180, 216, 0.08);
-    transform: translateY(-2px);
-}
-
-/* === Typing cursor === */
-.typing-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--accent-cyan);
-    animation: blink 1s infinite;
-    vertical-align: text-bottom;
-    margin-left: 2px;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* === Subtle pulse for important elements === */
-@keyframes subtle-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 transparent; }
-    50% { box-shadow: 0 0 10px var(--glow-cyan); }
-}
-
-/* === Page hero enhancement === */
-.page__hero {
-    position: relative;
-    overflow: hidden;
-}
-
-.page__hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-}
-
-/* === Scanline Effect === */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.03) 0px,
-        rgba(0, 0, 0, 0.03) 1px,
-        transparent 1px,
-        transparent 3px
-    );
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.5;
-}
-
-/* === Matrix Canvas === */
-#matrix-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -3;
-    pointer-events: none;
-    opacity: 0.06;
-}
-
-/* === Typing Effect === */
-#typing-text {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent-cyan);
-    font-size: 0.95em;
-}
-
-.typing-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--accent-cyan);
-    animation: blink 1s infinite;
-    vertical-align: text-bottom;
-    margin-left: 2px;
-    box-shadow: 0 0 4px var(--glow-cyan);
-}
-
-/* === Responsive === */
+/* ==========================================
+   Responsive
+   ========================================== */
 @media (max-width: 768px) {
-    body::before {
-        background-size: 40px 40px;
+    .sidebar-typing {
+        font-size: 0.75em;
     }
-
-    .page__content h2::before {
-        font-size: 0.7em;
-    }
-
-    .research-interest {
-        font-size: 0.85em;
-        padding: 2px 8px;
+    .dark-mode-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 38px;
+        height: 38px;
+        font-size: 1em;
     }
 }
