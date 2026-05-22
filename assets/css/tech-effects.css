@@ -1,0 +1,298 @@
+/* === Tech Effects for Yuxiang MA's Homepage === */
+/* Subtle, professional, but tech-savvy */
+
+/* Import modern monospace font for accents */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* CSS Variables */
+:root {
+    --accent-cyan: #00b4d8;
+    --accent-green: #2ecc71;
+    --accent-blue: #3498db;
+    --accent-purple: #9b59b6;
+    --text-muted: #6c757d;
+    --glow-cyan: rgba(0, 180, 216, 0.3);
+    --glow-green: rgba(46, 204, 113, 0.3);
+}
+
+/* === Subtle Grid Background === */
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 180, 216, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 216, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* === Particle Canvas === */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* === Enhanced Links === */
+.page__content a,
+.author-profile a,
+.sidebar a {
+    color: var(--accent-cyan) !important;
+    text-decoration: none !important;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.page__content a::after,
+.author-profile a::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 5px var(--glow-cyan);
+    transition: width 0.3s ease;
+}
+
+.page__content a:hover::after,
+.author-profile a:hover::after {
+    width: 100%;
+}
+
+.page__content a:hover,
+.author-profile a:hover {
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+/* === Heading Enhancements === */
+.page__content h1,
+.page__content h2,
+.page__content h3 {
+    position: relative;
+    padding-left: 0;
+}
+
+.page__content h2::before {
+    content: '//';
+    color: var(--accent-cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    margin-right: 8px;
+    opacity: 0.6;
+}
+
+.page__content h3::before {
+    content: '>';
+    color: var(--accent-green);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    margin-right: 8px;
+    opacity: 0.6;
+}
+
+/* === Card-like hover effect for list items === */
+.page__content li {
+    transition: all 0.3s ease;
+    padding: 2px 0;
+}
+
+.page__content li:hover {
+    transform: translateX(5px);
+    color: var(--accent-cyan);
+}
+
+/* === Author Profile Enhancements === */
+.author-profile {
+    position: relative;
+}
+
+.author-profile .author__avatar img {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 0 transparent;
+}
+
+.author-profile .author__avatar:hover img {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px var(--glow-cyan);
+}
+
+/* === Masthead Enhancement === */
+.masthead {
+    border-bottom: 1px solid rgba(0, 180, 216, 0.1);
+}
+
+/* === Publication List Styling === */
+.page__content ol,
+.page__content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.page__content ol li,
+.page__content ul li {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.page__content ol li::before,
+.page__content ul li::before {
+    content: '▸';
+    color: var(--accent-cyan);
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: 10px;
+    opacity: 0.5;
+}
+
+.page__content ol li:hover,
+.page__content ul li:hover {
+    border-left-color: var(--accent-cyan);
+    background: rgba(0, 180, 216, 0.03);
+    padding-left: 20px;
+}
+
+/* === Strong/Bold Text === */
+.page__content strong {
+    color: #2c3e50;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* === Code-like accents === */
+.page__content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    background: rgba(0, 180, 216, 0.05);
+    border: 1px solid rgba(0, 180, 216, 0.1);
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 3px;
+    opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0096c7;
+}
+
+/* === Selection === */
+::selection {
+    background: rgba(0, 180, 216, 0.2);
+    color: #2c3e50;
+}
+
+/* === Footer Enhancement === */
+.page__footer {
+    border-top: 1px solid rgba(0, 180, 216, 0.1);
+}
+
+.page__footer-copyright {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    color: var(--text-muted);
+}
+
+/* === Subtle glow for research interests === */
+.research-interest {
+    display: inline-block;
+    padding: 3px 12px;
+    margin: 3px;
+    border: 1px solid rgba(0, 180, 216, 0.2);
+    border-radius: 20px;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    background: rgba(0, 180, 216, 0.03);
+}
+
+.research-interest:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--glow-cyan);
+    background: rgba(0, 180, 216, 0.08);
+    transform: translateY(-2px);
+}
+
+/* === Typing cursor === */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent-cyan);
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* === Subtle pulse for important elements === */
+@keyframes subtle-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    50% { box-shadow: 0 0 10px var(--glow-cyan); }
+}
+
+/* === Page hero enhancement === */
+.page__hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.page__hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    body::before {
+        background-size: 40px 40px;
+    }
+
+    .page__content h2::before {
+        font-size: 0.7em;
+    }
+
+    .research-interest {
+        font-size: 0.85em;
+        padding: 2px 8px;
+    }
+}

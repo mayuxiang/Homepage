@@ -1,2 +1,20 @@
 <!-- start custom footer snippets -->
+<!-- Particle Constellation Background -->
+<script src="{{ base_path }}/assets/js/tech-effects.js" defer></script>
+
+<!-- Subtle hover effect for research interests -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Wrap research interests in styled spans
+    const content = document.querySelector('.page__content');
+    if (content) {
+        const interests = ['Network Security', 'Privacy', 'Trustworthy Machine Learning', 'Mobile Computing'];
+        // Don't modify, just add cursor effect to headings
+        const headings = content.querySelectorAll('h2, h3');
+        headings.forEach(h => {
+            h.style.cursor = 'default';
+        });
+    }
+});
+</script>
 <!-- end custom footer snippets -->
