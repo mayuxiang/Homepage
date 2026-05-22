@@ -1,6 +1,5 @@
 /* === Tech Effects for Yuxiang MA's Homepage === */
-
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* Font loaded in head/custom.html — do NOT duplicate with @import here */
 
 :root {
     --accent-cyan: #00b4d8;
@@ -295,7 +294,7 @@ body.dark-mode::after {
         transparent 3px
     );
     pointer-events: none;
-    z-index: 9998;
+    z-index: 0;
 }
 
 /* ==========================================

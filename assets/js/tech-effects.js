@@ -1,5 +1,10 @@
-// Tech Effects for Yuxiang MA's Homepage
-// Particle Constellation + Matrix Rain + Typing + Dark Mode
+/**
+ * Tech Effects for Yuxiang MA's Homepage
+ * - Particle constellation background
+ * - Matrix rain (very subtle, decorative)
+ * - Dark mode toggle (manual, localStorage)
+ * - Sidebar typing effect
+ */
 (function() {
     'use strict';
 
@@ -7,21 +12,18 @@
     // Dark Mode — default light, manual toggle only
     // ============================================
     function initDarkMode() {
-        const saved = localStorage.getItem('dark-mode');
-
-        // Only apply dark if user explicitly chose it
+        var saved = localStorage.getItem('dark-mode');
         if (saved === 'dark') {
             document.body.classList.add('dark-mode');
         }
 
-        // Create toggle button
-        const btn = document.createElement('button');
+        var btn = document.createElement('button');
         btn.className = 'dark-mode-toggle';
+        btn.setAttribute('aria-label', 'Toggle dark mode');
         btn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-        btn.title = 'Toggle dark mode';
         btn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
+            var isDark = document.body.classList.contains('dark-mode');
             btn.innerHTML = isDark ? '☀️' : '🌙';
             localStorage.setItem('dark-mode', isDark ? 'dark' : 'light');
         });
@@ -31,118 +33,124 @@
     initDarkMode();
 
     // ============================================
-    // Particle Constellation
+    // Particle Constellation Background
     // ============================================
-    const particleCanvas = document.createElement('canvas');
+    var particleCanvas = document.createElement('canvas');
     particleCanvas.id = 'particle-canvas';
     document.body.prepend(particleCanvas);
-    const pCtx = particleCanvas.getContext('2d');
-    let particles = [];
+    var pCtx = particleCanvas.getContext('2d');
+    var particles = [];
+    var paused = false;
 
-    function resizePCanvas() {
+    function resizeCanvas() {
         particleCanvas.width = window.innerWidth;
         particleCanvas.height = window.innerHeight;
     }
-    resizePCanvas();
 
-    class Particle {
-        constructor() {
-            this.reset();
+    function createParticles() {
+        particles = [];
+        var count = Math.floor((window.innerWidth * window.innerHeight) / 18000);
+        count = Math.max(40, Math.min(count, 120));
+        for (var i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * particleCanvas.width,
+                y: Math.random() * particleCanvas.height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                r: Math.random() * 1.5 + 0.5
+            });
         }
-        reset() {
-            this.x = Math.random() * particleCanvas.width;
-            this.y = Math.random() * particleCanvas.height;
-            this.vx = (Math.random() - 0.5) * 0.25;
-            this.vy = (Math.random() - 0.5) * 0.25;
-            this.size = Math.random() * 1.5 + 0.5;
-            this.opacity = Math.random() * 0.25 + 0.08;
-        }
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > particleCanvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > particleCanvas.height) this.vy *= -1;
-        }
-        draw() {
+    }
+
+    function drawParticles() {
+        if (!pCtx || paused) return;
+        pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+        var isDark = document.body.classList.contains('dark-mode');
+        var dotColor = isDark ? '0,180,216' : '100,100,100';
+        var lineColor = isDark ? '0,180,216' : '150,150,150';
+
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > particleCanvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > particleCanvas.height) p.vy *= -1;
+
+            pCtx.fillStyle = 'rgba(' + dotColor + ',0.6)';
             pCtx.beginPath();
-            pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            pCtx.fillStyle = `rgba(0, 180, 216, ${this.opacity})`;
+            pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             pCtx.fill();
-        }
-    }
 
-    function initParticles() {
-        const n = Math.min(50, Math.floor((particleCanvas.width * particleCanvas.height) / 25000));
-        particles = Array.from({length: n}, () => new Particle());
-    }
-
-    function drawConnections() {
-        const maxD = 110;
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const d = Math.sqrt(dx * dx + dy * dy);
-                if (d < maxD) {
-                    pCtx.beginPath();
-                    pCtx.moveTo(particles[i].x, particles[i].y);
-                    pCtx.lineTo(particles[j].x, particles[j].y);
-                    pCtx.strokeStyle = `rgba(0, 180, 216, ${(1 - d / maxD) * 0.1})`;
+            for (var j = i + 1; j < particles.length; j++) {
+                var p2 = particles[j];
+                var dx = p.x - p2.x;
+                var dy = p.y - p2.y;
+                var dist = dx * dx + dy * dy;
+                if (dist < 16000) {
+                    pCtx.strokeStyle = 'rgba(' + lineColor + ',' + (0.15 * (1 - dist / 16000)) + ')';
                     pCtx.lineWidth = 0.5;
+                    pCtx.beginPath();
+                    pCtx.moveTo(p.x, p.y);
+                    pCtx.lineTo(p2.x, p2.y);
                     pCtx.stroke();
                 }
             }
         }
+        requestAnimationFrame(drawParticles);
     }
 
-    function animateParticles() {
-        pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        drawConnections();
-        requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
     // ============================================
-    // Matrix Rain
+    // Matrix Rain (very subtle background effect)
     // ============================================
-    const matrixCanvas = document.createElement('canvas');
+    var matrixCanvas = document.createElement('canvas');
     matrixCanvas.id = 'matrix-canvas';
     document.body.prepend(matrixCanvas);
-    const mCtx = matrixCanvas.getContext('2d');
+    var mCtx = matrixCanvas.getContext('2d');
+    var matrixDrops = [];
+    var lastMatrixTime = 0;
 
-    function resizeMCanvas() {
+    function resizeMatrix() {
         matrixCanvas.width = window.innerWidth;
         matrixCanvas.height = window.innerHeight;
-    }
-    resizeMCanvas();
-
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*(){}[]<>?/~';
-    const fontSize = 14;
-    let columns = Math.floor(matrixCanvas.width / fontSize);
-    let drops = new Array(columns).fill(1);
-
-    function drawMatrix() {
-        mCtx.fillStyle = 'rgba(13, 17, 23, 0.06)';
-        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-        mCtx.font = fontSize + 'px JetBrains Mono, monospace';
-        for (let i = 0; i < drops.length; i++) {
-            const ch = chars[Math.floor(Math.random() * chars.length)];
-            mCtx.fillStyle = `rgba(0, 180, 216, ${Math.random() * 0.25 + 0.08})`;
-            mCtx.fillText(ch, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
+        matrixDrops = [];
+        var cols = Math.floor(matrixCanvas.width / 18);
+        for (var i = 0; i < cols; i++) {
+            matrixDrops.push(Math.random() * -100);
         }
     }
 
-    setInterval(drawMatrix, 65);
+    var matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+    function drawMatrix() {
+        if (!mCtx || paused) return;
+        mCtx.fillStyle = 'rgba(0,0,0,0.06)';
+        mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        mCtx.fillStyle = 'rgba(0,180,216,0.12)';
+        mCtx.font = '13px monospace';
+
+        for (var i = 0; i < matrixDrops.length; i++) {
+            var char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+            mCtx.fillText(char, i * 18, matrixDrops[i] * 18);
+            if (matrixDrops[i] * 18 > matrixCanvas.height && Math.random() > 0.985) {
+                matrixDrops[i] = 0;
+            }
+            matrixDrops[i] += 0.5;
+        }
+    }
+
+    function animateMatrix(timestamp) {
+        if (paused) return;
+        if (timestamp - lastMatrixTime >= 65) {
+            drawMatrix();
+            lastMatrixTime = timestamp;
+        }
+        requestAnimationFrame(animateMatrix);
+    }
 
     // ============================================
     // Typing Effect — Sidebar (all pages)
     // ============================================
-    const myPhrases = [
+    var myPhrases = [
         'Cybersecurity',
         'Trustworthy AI',
         'Embodied AI',
@@ -150,22 +158,20 @@
         'Intelligent Networked Systems'
     ];
 
-    const henuPhrases = [
+    var henuPhrases = [
         'One of the oldest universities in China'
     ];
 
     function initTyping() {
-        const el = document.getElementById('sidebar-typing-text');
+        var el = document.getElementById('sidebar-typing-text');
         if (!el) return;
 
-        // Detect HENU page
-        const isHenu = window.location.pathname.includes('/henu/');
-        const phrases = isHenu ? henuPhrases : myPhrases;
-
-        let pi = 0, ci = 0, deleting = false;
+        var isHenu = window.location.pathname.indexOf('/henu/') !== -1;
+        var phrases = isHenu ? henuPhrases : myPhrases;
+        var pi = 0, ci = 0, deleting = false;
 
         function type() {
-            const phrase = phrases[pi];
+            var phrase = phrases[pi];
             if (deleting) {
                 el.textContent = phrase.substring(0, ci - 1);
                 ci--;
@@ -174,17 +180,11 @@
                 ci++;
             }
 
-            let delay = deleting ? 35 : 70;
+            var delay = deleting ? 35 : 70;
 
             if (!deleting && ci === phrase.length) {
-                // Single phrase: hold longer, then restart
-                if (phrases.length === 1) {
-                    delay = 5000;
-                    deleting = true;
-                } else {
-                    delay = 2200;
-                    deleting = true;
-                }
+                delay = phrases.length === 1 ? 5000 : 2200;
+                deleting = true;
             } else if (deleting && ci === 0) {
                 deleting = false;
                 pi = (pi + 1) % phrases.length;
@@ -198,17 +198,61 @@
     }
 
     // ============================================
-    // Resize handler
+    // Visibility API — pause animations when hidden
     // ============================================
-    window.addEventListener('resize', function() {
-        resizePCanvas();
-        resizeMCanvas();
-        columns = Math.floor(matrixCanvas.width / fontSize);
-        drops = new Array(columns).fill(1);
-        initParticles();
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            paused = true;
+        } else {
+            paused = false;
+            requestAnimationFrame(animateMatrix);
+            requestAnimationFrame(drawParticles);
+        }
     });
 
-    // Init on DOM ready
-    document.addEventListener('DOMContentLoaded', initTyping);
+    // ============================================
+    // Init with error handling
+    // ============================================
+    try {
+        resizeCanvas();
+        resizeMatrix();
+        createParticles();
+        drawParticles();
+        requestAnimationFrame(animateMatrix);
+    } catch(e) {
+        console.warn('Canvas animations unavailable:', e);
+    }
 
+    var resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            resizeCanvas();
+            resizeMatrix();
+            createParticles();
+        }, 200);
+    });
+
+    try {
+        initTyping();
+    } catch(e) {
+        console.warn('Typing effect unavailable:', e);
+    }
+
+    // ============================================
+    // External links — open in new tab, security attrs
+    // ============================================
+    try {
+        var links = document.querySelectorAll('a[href^="http"]');
+        var host = window.location.hostname;
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            if (link.hostname !== host) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            }
+        }
+    } catch(e) {
+        console.warn('External link handling unavailable:', e);
+    }
 })();
