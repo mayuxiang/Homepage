@@ -4,12 +4,24 @@
     'use strict';
 
     // ============================================
-    // Dark Mode (default on)
+    // Dark Mode — auto by local time + manual toggle
+    // 10pm–7am = dark, otherwise light
+    // Manual override saved to localStorage
     // ============================================
     function initDarkMode() {
         const saved = localStorage.getItem('dark-mode');
-        // Default: dark
-        if (saved !== 'light') {
+        let shouldBeDark;
+
+        if (saved === 'dark' || saved === 'light') {
+            // User has manually set a preference
+            shouldBeDark = saved === 'dark';
+        } else {
+            // Auto: check user's local hour
+            const hour = new Date().getHours();
+            shouldBeDark = hour >= 22 || hour < 7;
+        }
+
+        if (shouldBeDark) {
             document.body.classList.add('dark-mode');
         }
 
@@ -17,7 +29,7 @@
         const btn = document.createElement('button');
         btn.className = 'dark-mode-toggle';
         btn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-        btn.title = 'Toggle dark mode';
+        btn.title = 'Toggle dark mode (auto: 10pm–7am)';
         btn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
