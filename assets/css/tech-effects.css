@@ -10,7 +10,7 @@
 }
 
 /* ==========================================
-   Dark Mode
+   Dark Mode Variables
    ========================================== */
 body.dark-mode {
     --bg-primary: #0d1117;
@@ -22,7 +22,59 @@ body.dark-mode {
     --link-color: #58a6ff;
 }
 
-/* Apply dark mode to all pages */
+/* ==========================================
+   Masthead / Navigation — unified with content
+   ========================================== */
+.masthead {
+    background-color: #fafbfc !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+.masthead__menu-item a {
+    color: #495057 !important;
+    transition: all 0.3s ease;
+}
+
+.masthead__menu-item a:hover {
+    color: var(--accent-cyan) !important;
+}
+
+.masthead__menu-item--lg a {
+    color: #2c3e50 !important;
+    font-weight: 600;
+}
+
+body.dark-mode .masthead {
+    background-color: var(--bg-secondary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: none;
+}
+
+body.dark-mode .masthead__menu-item a {
+    color: var(--text-secondary) !important;
+}
+
+body.dark-mode .masthead__menu-item a:hover {
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+body.dark-mode .masthead__menu-item--lg a {
+    color: var(--accent-cyan) !important;
+}
+
+/* Also fix the greedy-nav background */
+.greedy-nav {
+    background-color: transparent !important;
+}
+
+body.dark-mode .greedy-nav {
+    background-color: transparent !important;
+}
+
+/* ==========================================
+   Dark Mode - Main content areas
+   ========================================== */
 body.dark-mode,
 body.dark-mode .page,
 body.dark-mode .page__inner,
@@ -38,29 +90,6 @@ body.dark-mode .grid__item {
     color: var(--text-primary) !important;
 }
 
-/* Masthead / Navigation Bar */
-body.dark-mode .masthead {
-    background-color: var(--bg-secondary) !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-}
-
-body.dark-mode .masthead__menu-item a {
-    color: var(--text-secondary) !important;
-    transition: all 0.3s ease;
-}
-
-body.dark-mode .masthead__menu-item a:hover {
-    color: var(--accent-cyan) !important;
-    text-shadow: 0 0 8px var(--glow-cyan);
-}
-
-body.dark-mode .masthead__menu-item--lg a {
-    color: var(--accent-cyan) !important;
-    font-weight: 600;
-}
-
-/* Sidebar */
 body.dark-mode .sidebar {
     background-color: var(--bg-secondary) !important;
     border-right: 1px solid var(--border-color) !important;
@@ -131,47 +160,78 @@ body.dark-mode article:hover {
     box-shadow: 0 0 15px rgba(0, 180, 216, 0.1) !important;
 }
 
-/* Author social links - remove bullet, use icon */
-body.dark-mode .author__urls.social-icons {
+/* ==========================================
+   Avatar — remove square border in dark mode
+   ========================================== */
+.author__avatar img {
+    border-radius: 50%;
+}
+
+body.dark-mode .author__avatar img {
+    border: none !important;
+    box-shadow: 0 0 15px var(--glow-cyan);
+}
+
+/* ==========================================
+   Social Icons — NO bullets, use icons only
+   ========================================== */
+.author__urls.social-icons,
+.author__urls.social-icons li {
     list-style: none !important;
+    list-style-type: none !important;
+}
+
+.author__urls.social-icons {
     padding-left: 0 !important;
 }
 
-body.dark-mode .author__urls.social-icons li {
+.author__urls.social-icons li::before,
+.author__urls.social-icons li::marker {
+    display: none !important;
+    content: '' !important;
+}
+
+/* Also fix the dropdown on mobile */
+.author__urls {
     list-style: none !important;
 }
 
-body.dark-mode .author__urls.social-icons li::before {
+body.dark-mode .author__urls {
+    background: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+body.dark-mode .author__urls li {
+    list-style: none !important;
+}
+
+body.dark-mode .author__urls li::before {
     display: none !important;
 }
 
-/* Dark mode toggle button */
-.dark-mode-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--border-color, rgba(0,180,216,0.3));
-    background: var(--bg-secondary, #161b22);
-    color: var(--accent-cyan);
-    font-size: 1.2em;
-    cursor: pointer;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+/* ==========================================
+   Footer — narrower
+   ========================================== */
+.page__footer footer {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+    margin-top: 1.5em !important;
 }
 
-.dark-mode-toggle:hover {
-    box-shadow: 0 0 15px var(--glow-cyan);
-    transform: scale(1.1);
+.page__footer-copyright {
+    font-size: 0.72em !important;
+    opacity: 0.6;
+    line-height: 1.2;
 }
 
-/* Grid background for dark mode */
+body.dark-mode .page__footer-copyright {
+    font-size: 0.72em !important;
+    opacity: 0.4;
+}
+
+/* ==========================================
+   Grid background for dark mode
+   ========================================== */
 body.dark-mode::before {
     content: '';
     position: fixed;
@@ -188,7 +248,7 @@ body.dark-mode::before {
 }
 
 /* ==========================================
-   Scanline Effect (very subtle)
+   Scanline Effect (subtle)
    ========================================== */
 body.dark-mode::after {
     content: '';
@@ -250,10 +310,6 @@ body.dark-mode::after {
     color: var(--accent-cyan);
 }
 
-body.dark-mode #sidebar-typing-text {
-    color: var(--accent-cyan);
-}
-
 .typing-cursor {
     display: inline-block;
     width: 2px;
@@ -271,46 +327,9 @@ body.dark-mode #sidebar-typing-text {
 }
 
 /* ==========================================
-   Light Mode - Masthead fixes
-   ========================================== */
-.masthead {
-    background-color: #f8f9fa !important;
-    border-bottom: 1px solid #e9ecef !important;
-}
-
-.masthead__menu-item a {
-    color: #495057 !important;
-    transition: all 0.3s ease;
-}
-
-.masthead__menu-item a:hover {
-    color: var(--accent-cyan) !important;
-}
-
-.masthead__menu-item--lg a {
-    color: #2c3e50 !important;
-    font-weight: 600;
-}
-
-/* Social icons - no bullets */
-.author__urls.social-icons {
-    list-style: none !important;
-    padding-left: 5px !important;
-}
-
-.author__urls.social-icons li {
-    list-style: none !important;
-}
-
-.author__urls.social-icons li::before {
-    display: none !important;
-}
-
-/* ==========================================
    Enhanced Links (dark mode)
    ========================================== */
-body.dark-mode .page__content a,
-body.dark-mode .author__urls a {
+body.dark-mode .page__content a {
     position: relative;
     transition: all 0.3s ease;
 }
@@ -349,29 +368,38 @@ body.dark-mode .page__content li:hover {
 }
 
 /* ==========================================
-   Author avatar glow (dark mode)
+   Dark Mode Toggle Button
    ========================================== */
-body.dark-mode .author__avatar img {
-    border: 2px solid transparent;
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #e9ecef;
+    background: #fafbfc;
+    color: #495057;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-body.dark-mode .author__avatar:hover img {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 20px var(--glow-cyan);
+.dark-mode-toggle:hover {
+    box-shadow: 0 0 15px var(--glow-cyan);
+    transform: scale(1.1);
 }
 
-/* ==========================================
-   Footer - smaller text
-   ========================================== */
-.page__footer-copyright {
-    font-size: 0.78em !important;
-    opacity: 0.7;
-}
-
-body.dark-mode .page__footer-copyright {
-    font-size: 0.78em !important;
-    opacity: 0.5;
+body.dark-mode .dark-mode-toggle {
+    border-color: var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--accent-cyan);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 /* ==========================================
@@ -394,7 +422,6 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 180, 216, 0.5);
 }
 
-/* Selection */
 body.dark-mode ::selection {
     background: rgba(0, 180, 216, 0.25);
     color: #e6edf3;

@@ -141,16 +141,24 @@
     // ============================================
     // Typing Effect — Sidebar (all pages)
     // ============================================
-    const phrases = [
+    const myPhrases = [
         'Network Security & Privacy',
         'Trustworthy Machine Learning',
         'Mobile Computing',
         'Intelligent Networked Systems'
     ];
 
+    const henuPhrases = [
+        'One of the oldest universities in China'
+    ];
+
     function initTyping() {
         const el = document.getElementById('sidebar-typing-text');
         if (!el) return;
+
+        // Detect HENU page
+        const isHenu = window.location.pathname.includes('/henu/');
+        const phrases = isHenu ? henuPhrases : myPhrases;
 
         let pi = 0, ci = 0, deleting = false;
 
@@ -167,8 +175,14 @@
             let delay = deleting ? 35 : 70;
 
             if (!deleting && ci === phrase.length) {
-                delay = 2200;
-                deleting = true;
+                // Single phrase: hold longer, then restart
+                if (phrases.length === 1) {
+                    delay = 5000;
+                    deleting = true;
+                } else {
+                    delay = 2200;
+                    deleting = true;
+                }
             } else if (deleting && ci === 0) {
                 deleting = false;
                 pi = (pi + 1) % phrases.length;
