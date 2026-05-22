@@ -9,6 +9,21 @@
 }
 
 /* ==========================================
+   Reduced Motion — disable all animations
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .typing-cursor { display: none; }
+    #particle-canvas, #matrix-canvas { display: none; }
+    body.dark-mode .page__content li:hover { transform: none; }
+    body.dark-mode .page__content a::after { display: none; }
+}
+
+/* ==========================================
    Dark Mode Variables
    ========================================== */
 body.dark-mode {
@@ -22,83 +37,80 @@ body.dark-mode {
 }
 
 /* ==========================================
-   Masthead / Navigation — unified with content
+   Masthead / Navigation
    ========================================== */
 .masthead {
-    background-color: #fafbfc !important;
-    border-bottom: 1px solid #e9ecef !important;
+    background-color: #fafbfc;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .masthead__menu-item a {
-    color: #495057 !important;
-    transition: all 0.3s ease;
+    color: #495057;
+    transition: color 0.3s ease, border-color 0.3s ease;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
 }
 
 .masthead__menu-item a:hover {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
     border-bottom-color: var(--accent-cyan);
 }
 
-/* Active nav item — light mode */
 .masthead__menu-item.is-active a,
 .masthead__menu-item.is-active > a {
-    color: var(--accent-cyan) !important;
-    font-weight: 600 !important;
-    border-bottom-color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
+    font-weight: 600;
+    border-bottom-color: var(--accent-cyan);
 }
 
 .masthead__menu-item--lg a {
-    color: #2c3e50 !important;
+    color: #2c3e50;
     font-weight: 600;
 }
 
 .masthead__menu-item--lg.is-active a {
-    color: #2c3e50 !important;
+    color: #2c3e50;
 }
 
 body.dark-mode .masthead {
-    background-color: var(--bg-secondary) !important;
-    border-bottom: 1px solid var(--border-color) !important;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
     box-shadow: none;
 }
 
 body.dark-mode .masthead__menu-item a {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
     border-bottom-color: transparent;
 }
 
 body.dark-mode .masthead__menu-item a:hover {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
     text-shadow: 0 0 8px var(--glow-cyan);
     border-bottom-color: var(--accent-cyan);
 }
 
-/* Active nav item — dark mode */
 body.dark-mode .masthead__menu-item.is-active a,
 body.dark-mode .masthead__menu-item.is-active > a {
-    color: var(--accent-cyan) !important;
-    font-weight: 600 !important;
-    border-bottom-color: var(--accent-cyan) !important;
-    text-shadow: 0 0 8px var(--glow-cyan) !important;
+    color: var(--accent-cyan);
+    font-weight: 600;
+    border-bottom-color: var(--accent-cyan);
+    text-shadow: 0 0 8px var(--glow-cyan);
 }
 
 body.dark-mode .masthead__menu-item--lg a {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
 }
 
 body.dark-mode .masthead__menu-item--lg.is-active a {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
 }
 
-/* Also fix the greedy-nav background */
 .greedy-nav {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 body.dark-mode .greedy-nav {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
 /* ==========================================
@@ -115,41 +127,40 @@ body.dark-mode .page__content,
 body.dark-mode .archive,
 body.dark-mode .grid__wrapper,
 body.dark-mode .grid__item {
-    background-color: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body.dark-mode .sidebar {
-    background-color: var(--bg-secondary) !important;
-    border-right: 1px solid var(--border-color) !important;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
 }
 
 body.dark-mode .author__name {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
     text-shadow: 0 0 10px var(--glow-cyan);
 }
 
 body.dark-mode .author__bio,
 body.dark-mode .author__location {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
 }
 
-/* Headings - tech cyan style */
 body.dark-mode h1,
 body.dark-mode h2,
 body.dark-mode h3,
 body.dark-mode h4 {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
     text-shadow: 0 0 6px rgba(0, 180, 216, 0.2);
 }
 
 body.dark-mode a {
-    color: var(--link-color) !important;
+    color: var(--link-color);
     transition: all 0.3s ease;
 }
 
 body.dark-mode a:hover {
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
     text-shadow: 0 0 8px var(--glow-cyan);
 }
 
@@ -157,36 +168,34 @@ body.dark-mode p,
 body.dark-mode li,
 body.dark-mode td,
 body.dark-mode th {
-    color: var(--text-primary) !important;
+    color: var(--text-primary);
 }
 
 body.dark-mode code,
 body.dark-mode pre {
-    background-color: var(--bg-card) !important;
-    color: var(--text-primary) !important;
-    border: 1px solid var(--border-color) !important;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
 body.dark-mode blockquote {
-    border-left-color: var(--accent-cyan) !important;
-    background-color: rgba(0, 180, 216, 0.05) !important;
+    border-left-color: var(--accent-cyan);
+    background-color: rgba(0, 180, 216, 0.05);
 }
 
-/* Footer */
 body.dark-mode .page__footer {
-    background-color: var(--bg-secondary) !important;
-    border-top: 1px solid var(--border-color) !important;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
 }
 
 body.dark-mode .page__footer-copyright {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
 }
 
-/* Cards hover */
 body.dark-mode .grid__item:hover,
 body.dark-mode article:hover {
-    border-color: var(--accent-cyan) !important;
-    box-shadow: 0 0 15px rgba(0, 180, 216, 0.1) !important;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.1);
 }
 
 /* ==========================================
@@ -197,64 +206,63 @@ body.dark-mode article:hover {
 }
 
 body.dark-mode .author__avatar img {
-    border: none !important;
-    box-shadow: none !important;
+    border: none;
+    box-shadow: none;
 }
 
 /* ==========================================
-   Social Icons — NO bullets, use icons only
+   Social Icons — NO bullets
    ========================================== */
 .author__urls.social-icons,
 .author__urls.social-icons li {
-    list-style: none !important;
-    list-style-type: none !important;
+    list-style: none;
+    list-style-type: none;
 }
 
 .author__urls.social-icons {
-    padding-left: 0 !important;
+    padding-left: 0;
 }
 
 .author__urls.social-icons li::before,
 .author__urls.social-icons li::marker {
-    display: none !important;
-    content: '' !important;
+    display: none;
+    content: '';
 }
 
-/* Also fix the dropdown on mobile */
 .author__urls {
-    list-style: none !important;
+    list-style: none;
 }
 
 body.dark-mode .author__urls {
-    background: var(--bg-secondary) !important;
-    border-color: var(--border-color) !important;
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
 }
 
 body.dark-mode .author__urls li {
-    list-style: none !important;
+    list-style: none;
 }
 
 body.dark-mode .author__urls li::before {
-    display: none !important;
+    display: none;
 }
 
 /* ==========================================
    Footer — narrower
    ========================================== */
 .page__footer footer {
-    padding-top: 1em !important;
-    padding-bottom: 1em !important;
-    margin-top: 1.5em !important;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-top: 1.5em;
 }
 
 .page__footer-copyright {
-    font-size: 0.72em !important;
+    font-size: 0.72em;
     opacity: 0.6;
     line-height: 1.2;
 }
 
 body.dark-mode .page__footer-copyright {
-    font-size: 0.72em !important;
+    font-size: 0.72em;
     opacity: 0.4;
 }
 
@@ -393,7 +401,7 @@ body.dark-mode .page__content li {
 
 body.dark-mode .page__content li:hover {
     transform: translateX(5px);
-    color: var(--accent-cyan) !important;
+    color: var(--accent-cyan);
 }
 
 /* ==========================================
@@ -422,6 +430,11 @@ body.dark-mode .page__content li:hover {
 .dark-mode-toggle:hover {
     box-shadow: 0 0 15px var(--glow-cyan);
     transform: scale(1.1);
+}
+
+.dark-mode-toggle:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
 }
 
 body.dark-mode .dark-mode-toggle {

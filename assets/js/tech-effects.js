@@ -1,12 +1,19 @@
 /**
  * Tech Effects for Yuxiang MA's Homepage
  * - Particle constellation background
- * - Matrix rain (very subtle, decorative)
+ * - Matrix rain (dark mode + desktop only)
  * - Dark mode toggle (manual, localStorage)
  * - Sidebar typing effect
+ * - External link security
+ * - Email obfuscation
  */
 (function() {
     'use strict';
+
+    // ============================================
+    // Reduced Motion check
+    // ============================================
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ============================================
     // Dark Mode — default light, manual toggle only
@@ -20,11 +27,13 @@
         var btn = document.createElement('button');
         btn.className = 'dark-mode-toggle';
         btn.setAttribute('aria-label', 'Toggle dark mode');
+        btn.setAttribute('aria-pressed', document.body.classList.contains('dark-mode') ? 'true' : 'false');
         btn.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         btn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
             var isDark = document.body.classList.contains('dark-mode');
             btn.innerHTML = isDark ? '☀️' : '🌙';
+            btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
             localStorage.setItem('dark-mode', isDark ? 'dark' : 'light');
         });
         document.body.appendChild(btn);
@@ -37,6 +46,7 @@
     // ============================================
     var particleCanvas = document.createElement('canvas');
     particleCanvas.id = 'particle-canvas';
+    particleCanvas.setAttribute('aria-hidden', 'true');
     document.body.prepend(particleCanvas);
     var pCtx = particleCanvas.getContext('2d');
     var particles = [];
@@ -100,10 +110,11 @@
     }
 
     // ============================================
-    // Matrix Rain (very subtle background effect)
+    // Matrix Rain — dark mode + desktop only
     // ============================================
     var matrixCanvas = document.createElement('canvas');
     matrixCanvas.id = 'matrix-canvas';
+    matrixCanvas.setAttribute('aria-hidden', 'true');
     document.body.prepend(matrixCanvas);
     var mCtx = matrixCanvas.getContext('2d');
     var matrixDrops = [];
@@ -140,9 +151,17 @@
 
     function animateMatrix(timestamp) {
         if (paused) return;
-        if (timestamp - lastMatrixTime >= 65) {
-            drawMatrix();
-            lastMatrixTime = timestamp;
+        // Only run matrix rain in dark mode AND on desktop
+        var isDark = document.body.classList.contains('dark-mode');
+        var isDesktop = window.innerWidth > 768;
+        if (isDark && isDesktop) {
+            if (timestamp - lastMatrixTime >= 65) {
+                drawMatrix();
+                lastMatrixTime = timestamp;
+            }
+        } else {
+            // Clear canvas when not active
+            if (mCtx) mCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
         }
         requestAnimationFrame(animateMatrix);
     }
@@ -213,25 +232,27 @@
     // ============================================
     // Init with error handling
     // ============================================
-    try {
-        resizeCanvas();
-        resizeMatrix();
-        createParticles();
-        drawParticles();
-        requestAnimationFrame(animateMatrix);
-    } catch(e) {
-        console.warn('Canvas animations unavailable:', e);
-    }
-
-    var resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(function() {
+    if (!prefersReducedMotion) {
+        try {
             resizeCanvas();
             resizeMatrix();
             createParticles();
-        }, 200);
-    });
+            drawParticles();
+            requestAnimationFrame(animateMatrix);
+        } catch(e) {
+            console.warn('Canvas animations unavailable:', e);
+        }
+
+        var resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                resizeCanvas();
+                resizeMatrix();
+                createParticles();
+            }, 200);
+        });
+    }
 
     try {
         initTyping();
@@ -260,12 +281,11 @@
     // Email obfuscation — construct at runtime
     // ============================================
     try {
-        var el = document.getElementById('email-obfuscated');
+        var el = document.getElementById('contact-info');
         if (el) {
-            // Parts split across data attributes, scrambled order
-            var p1 = el.getAttribute('data-domain');   // "hotmail"
-            var p2 = el.getAttribute('data-tld');       // "com"
-            var p3 = el.getAttribute('data-user');      // "y.x.ma"
+            var p1 = el.getAttribute('data-domain');
+            var p2 = el.getAttribute('data-tld');
+            var p3 = el.getAttribute('data-user');
             var email = p3 + '@' + p1 + '.' + p2;
             var a = document.createElement('a');
             a.href = 'mailto:' + email;

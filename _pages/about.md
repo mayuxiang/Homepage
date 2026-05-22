@@ -22,4 +22,4 @@ Outside academia, I enjoy traveling, running, swimming, photography, reading, st
 
 ## Contact
 
-* Email: <span id="email-obfuscated" data-user="y.x.ma" data-domain="hotmail" data-tld="com">[enable JavaScript to view]</span>
+* Email: <span id="contact-info" data-user="y.x.ma" data-domain="hotmail" data-tld="com">[enable JavaScript to view]</span>

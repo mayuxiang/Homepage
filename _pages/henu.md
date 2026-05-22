@@ -56,11 +56,11 @@ HENU Website:
 
 <div class="henu-carousel">
   <div class="henu-carousel-inner">
-    <img src="{{ base_path }}/images/henu-1.jpg" alt="Henan University Campus">
-    <img src="{{ base_path }}/images/henu-3.jpg" alt="Henan University Campus">
-    <img src="{{ base_path }}/images/henu-2.jpg" alt="Henan University Campus">
-    <img src="{{ base_path }}/images/henu-4.jpg" alt="Henan University Campus">
-    <img src="{{ base_path }}/images/henu-5.jpg" alt="Henan University Campus">
+    <img src="{{ base_path }}/images/henu-1.jpg" alt="Henan University Campus 1" loading="lazy">
+    <img src="{{ base_path }}/images/henu-3.jpg" alt="Henan University Campus 3" loading="lazy">
+    <img src="{{ base_path }}/images/henu-2.jpg" alt="Henan University Campus 2" loading="lazy">
+    <img src="{{ base_path }}/images/henu-4.jpg" alt="Henan University Campus 4" loading="lazy">
+    <img src="{{ base_path }}/images/henu-5.jpg" alt="Henan University Campus 5" loading="lazy">
   </div>
 </div>
 
