@@ -26,7 +26,6 @@ body.dark-mode {
 body.dark-mode,
 body.dark-mode .page,
 body.dark-mode .page__inner,
-body.dark-mode .masthead,
 body.dark-mode .sidebar,
 body.dark-mode .author__content,
 body.dark-mode .author__urls-wrapper,
@@ -39,17 +38,37 @@ body.dark-mode .grid__item {
     color: var(--text-primary) !important;
 }
 
+/* Masthead / Navigation Bar */
 body.dark-mode .masthead {
     background-color: var(--bg-secondary) !important;
     border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 
+body.dark-mode .masthead__menu-item a {
+    color: var(--text-secondary) !important;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .masthead__menu-item a:hover {
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+body.dark-mode .masthead__menu-item--lg a {
+    color: var(--accent-cyan) !important;
+    font-weight: 600;
+}
+
+/* Sidebar */
 body.dark-mode .sidebar {
     background-color: var(--bg-secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
 }
 
 body.dark-mode .author__name {
-    color: var(--text-primary) !important;
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 10px var(--glow-cyan);
 }
 
 body.dark-mode .author__bio,
@@ -57,19 +76,23 @@ body.dark-mode .author__location {
     color: var(--text-secondary) !important;
 }
 
+/* Headings - tech cyan style */
 body.dark-mode h1,
 body.dark-mode h2,
 body.dark-mode h3,
 body.dark-mode h4 {
-    color: #e6edf3 !important;
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 6px rgba(0, 180, 216, 0.2);
 }
 
 body.dark-mode a {
     color: var(--link-color) !important;
+    transition: all 0.3s ease;
 }
 
 body.dark-mode a:hover {
-    color: #79c0ff !important;
+    color: var(--accent-cyan) !important;
+    text-shadow: 0 0 8px var(--glow-cyan);
 }
 
 body.dark-mode p,
@@ -91,6 +114,7 @@ body.dark-mode blockquote {
     background-color: rgba(0, 180, 216, 0.05) !important;
 }
 
+/* Footer */
 body.dark-mode .page__footer {
     background-color: var(--bg-secondary) !important;
     border-top: 1px solid var(--border-color) !important;
@@ -100,10 +124,25 @@ body.dark-mode .page__footer-copyright {
     color: var(--text-secondary) !important;
 }
 
+/* Cards hover */
 body.dark-mode .grid__item:hover,
 body.dark-mode article:hover {
     border-color: var(--accent-cyan) !important;
     box-shadow: 0 0 15px rgba(0, 180, 216, 0.1) !important;
+}
+
+/* Author social links - remove bullet, use icon */
+body.dark-mode .author__urls.social-icons {
+    list-style: none !important;
+    padding-left: 0 !important;
+}
+
+body.dark-mode .author__urls.social-icons li {
+    list-style: none !important;
+}
+
+body.dark-mode .author__urls.social-icons li::before {
+    display: none !important;
 }
 
 /* Dark mode toggle button */
@@ -229,6 +268,42 @@ body.dark-mode #sidebar-typing-text {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+/* ==========================================
+   Light Mode - Masthead fixes
+   ========================================== */
+.masthead {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+.masthead__menu-item a {
+    color: #495057 !important;
+    transition: all 0.3s ease;
+}
+
+.masthead__menu-item a:hover {
+    color: var(--accent-cyan) !important;
+}
+
+.masthead__menu-item--lg a {
+    color: #2c3e50 !important;
+    font-weight: 600;
+}
+
+/* Social icons - no bullets */
+.author__urls.social-icons {
+    list-style: none !important;
+    padding-left: 5px !important;
+}
+
+.author__urls.social-icons li {
+    list-style: none !important;
+}
+
+.author__urls.social-icons li::before {
+    display: none !important;
 }
 
 /* ==========================================
