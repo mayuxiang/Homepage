@@ -146,7 +146,7 @@
         'Network Security & Privacy',
         'Trustworthy Machine Learning',
         'Mobile Computing',
-        'Intelligent Networked Systems'
+        'Embodied Artificial Intelligence'
     ];
 
     const henuPhrases = [
