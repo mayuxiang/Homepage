@@ -22,4 +22,4 @@ Outside academia, I enjoy traveling, running, swimming, photography, reading, st
 
 ## Contact
 
-* Email: <a alt="address" href="mailto:&#x0000079;&#x002e;&#00120;&#000046;&#x00006d;&#x0000061;&#x000040;&#x68;&#x00006f;&#116;&#0000109;&#97;&#0000105;&#00000108;&#00046;&#099;&#0111;&#000109;">&#x0000079;&#x002e;&#00120;&#000046;&#x00006d;&#x0000061;&#x000040;&#x68;&#x00006f;&#116;&#0000109;&#97;&#0000105;&#00000108;&#00046;&#099;&#0111;&#000109;</a>
+* Email: <span id="email-obfuscated" data-user="y.x.ma" data-domain="hotmail" data-tld="com">[enable JavaScript to view]</span>

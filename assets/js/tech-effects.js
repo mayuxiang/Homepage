@@ -255,4 +255,25 @@
     } catch(e) {
         console.warn('External link handling unavailable:', e);
     }
+
+    // ============================================
+    // Email obfuscation — construct at runtime
+    // ============================================
+    try {
+        var el = document.getElementById('email-obfuscated');
+        if (el) {
+            // Parts split across data attributes, scrambled order
+            var p1 = el.getAttribute('data-domain');   // "hotmail"
+            var p2 = el.getAttribute('data-tld');       // "com"
+            var p3 = el.getAttribute('data-user');      // "y.x.ma"
+            var email = p3 + '@' + p1 + '.' + p2;
+            var a = document.createElement('a');
+            a.href = 'mailto:' + email;
+            a.textContent = email;
+            a.style.color = 'inherit';
+            el.parentNode.replaceChild(a, el);
+        }
+    } catch(e) {
+        console.warn('Email obfuscation unavailable:', e);
+    }
 })();
