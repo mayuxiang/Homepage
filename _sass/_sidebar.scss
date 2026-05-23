@@ -122,9 +122,9 @@
 
 .author__name-zh {
   margin: 0;
-  font-family: $sans-serif;
-  font-size: $type-size-5;
-  font-weight: 500;
+  font-family: 'KaiTi', 'STKaiti', 'AR PL UKai CN', serif;
+  font-size: $type-size-4;
+  font-weight: bold;
 
   @include breakpoint($large) {
     margin-top: 10px;
