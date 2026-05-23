@@ -1,5 +1,5 @@
 /**
- * Tech Effects for Yuxiang MA's Homepage
+ * Tech Effects for MA, Yuxiang's Homepage
  * - Particle constellation background
  * - Matrix rain (dark mode + desktop only)
  * - Dark mode toggle (manual, localStorage)

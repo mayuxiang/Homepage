@@ -1,9 +1,9 @@
 # Site Settings
 locale                   : "en-US"
-title                    : "Yuxiang MA"
+title                    : "MA, Yuxiang"
 title_separator          : "-"
-name                     : "Yuxiang MA"
-description              : &description "Dr. Yuxiang MA's personal homepage"
+name                     : "MA, Yuxiang"
+description              : &description "Dr. MA Yuxiang's personal homepage"
 url                      : "https://mayuxiang.github.io"
 baseurl                  :
 repository               : "mayuxiang/mayuxiang.github.io"
@@ -25,7 +25,7 @@ yandex_site_verification :
 
 # Site Author
 author:
-  name             : "Yuxiang MA"
+  name             : "MA, Yuxiang"
   avatar           : "me.jpg"
   bio              :
   location         :
