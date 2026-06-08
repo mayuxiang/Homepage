@@ -1,8 +1,8 @@
 # Site Settings
 locale                   : "en-US"
-title                    : "MA, Yuxiang"
+title                    : "Yuxiang MA"
 title_separator          : "-"
-name                     : "MA, Yuxiang"
+name                     : "Yuxiang MA"
 description              : &description "Dr. MA Yuxiang's personal homepage"
 url                      : "https://yuxiangma.com"
 baseurl                  :
@@ -25,7 +25,7 @@ yandex_site_verification :
 
 # Site Author
 author:
-  name             : "MA, Yuxiang"
+  name             : "Yuxiang MA"
   avatar           : "me.jpg"
   bio              :
   location         :
